@@ -1,0 +1,8 @@
+hadoop fs -mkdir -p /count/input
+hadoop fs -put /data/CRND0103-2022-AK_Aleknagik_1_NNE.txt  /count/input
+echo $HADOOP_CLASSPATH
+export HADOOP_CLASSPATH=$(hadoop classpath)
+javac -classpath ${HADOOP_CLASSPATH} -d /data/ss/ DayMin.java
+jar -cvf DayMin.jar -C /data/ss/ .
+hadoop jar DayMin.jar Daymin /count/input/CRND0103-2015-TX_Austin_33_NW.txt /count/output
+hadoop fs -cat /count/output/*
